@@ -3,10 +3,13 @@ from logging_playground.utils import BaseLoggingTest
 
 
 class TestDisableExistingLoggers(BaseLoggingTest):
+    """
+    Test effects of the ``disable_existing_loggers`` value.
+    """
 
-    def test_disable_existing_loggers(self):
+    def test_disable_existing_loggers_false(self):
         """
-        When `disable_existing_loggers` is False, any loggers from the initial
+        When ``disable_existing_loggers`` is False, any loggers from the initial
         config which aren't redefined are kept.
         """
         logging.config.dictConfig({
@@ -49,7 +52,7 @@ class TestDisableExistingLoggers(BaseLoggingTest):
 
     def test_disable_existing_loggers_true(self):
         """
-        When `disable_existing_loggers` is True, any loggers from the initial
+        When ``disable_existing_loggers`` is True, any loggers from the initial
         config are disabled. This is unintuitive in that it does not overwrite
         the entire logging config. It does not even disable all the "loggers".
         If a logger is defined in the second config and its parent is defined

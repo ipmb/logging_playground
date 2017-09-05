@@ -3,10 +3,13 @@ from logging_playground.utils import BaseLoggingTest
 
 
 class TestLogLevels(BaseLoggingTest):
+    """
+    How do log levels defined at the handler or logging level play together?
+    """
 
     def test_logger_above_handler(self):
         """
-        Defined children should also obey the parent config
+        Logger has a more restrictive level than the handler
         """
         logging.config.dictConfig({
             'version': 1,
@@ -35,7 +38,7 @@ class TestLogLevels(BaseLoggingTest):
 
     def test_logger_below_handler(self):
         """
-        Defined children should also obey the parent config
+        Logger has a less restrictive level than the handler
         """
         logging.config.dictConfig({
             'version': 1,

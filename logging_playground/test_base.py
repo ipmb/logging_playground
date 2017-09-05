@@ -8,7 +8,11 @@ DEFAULT_TREE = """
 <--""
    Level WARNING"""
 
+
 class TestBaseLoggingTest(BaseLoggingTest):
+    """
+    Verify base test case resets logging correctly
+    """
 
     def test_default_tree(self):
         self.assertLogTree(DEFAULT_TREE)

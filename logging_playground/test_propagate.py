@@ -3,6 +3,9 @@ from logging_playground.utils import BaseLoggingTest
 
 
 class TestPropagate(BaseLoggingTest):
+    """
+    How does the ``propagate`` value affect loggers?
+    """
 
     def test_propagate_true(self):
         """

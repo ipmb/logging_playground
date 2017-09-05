@@ -3,10 +3,14 @@ from logging_playground.utils import BaseLoggingTest
 
 
 class TestInheritance(BaseLoggingTest):
+    """
+    Test how parent/children inherit configurations and the effect of
+    redefining the same logger.
+    """
 
     def test_child_inheritance(self):
         """
-        Defined children should also obey the parent config
+        Defined children should also use the parent config
         """
         logging.config.dictConfig({
             'version': 1,
