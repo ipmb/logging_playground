@@ -1,6 +1,6 @@
 import logging
 from logging.config import dictConfig
-from logging_playground.test_base import BaseLoggingTest
+from logging_playground.utils import BaseLoggingTest
 
 
 class TestDisableExistingLoggers(BaseLoggingTest):
