@@ -1,5 +1,4 @@
 import logging
-from logging.config import dictConfig
 from logging_playground.utils import BaseLoggingTest
 
 
