@@ -107,3 +107,47 @@ class TestInheritance(BaseLoggingTest):
         self.assertMockLog(logging.ERROR, [])
         # Last defined handler is used
         self.assertMockLog2(logging.ERROR, [log_msg])
+
+    def test_redefinition_child(self):
+        """
+        Redefining the logger, replaces the initial definition
+        AND wipes out any configured children!
+        """
+        logging.config.dictConfig({
+            'version': 1,
+            'handlers': {
+                'test': {
+                    'class': 'logging_playground.utils.MockLoggingHandler',
+                },
+            },
+            'loggers': {
+                'my_module': {
+                    'handlers': ['test'],
+                },
+                'my_module.child': {
+                    'handlers': ['test'],
+                },
+            }
+        })
+
+        logging.config.dictConfig({
+            'version': 1,
+            'handlers': {
+                'test2': {
+                    'class': 'logging_playground.utils.MockLoggingHandler2',
+                },
+            },
+            'loggers': {
+                'my_module': {
+                    'handlers': ['test2'],
+                },
+            }
+        })
+
+        log_msg = "This is a test"
+
+        logging.getLogger('my_module.child').error(log_msg)
+        # Initially defined handler for child is empty
+        self.assertMockLog(logging.ERROR, [])
+        # Last defined handler is used
+        self.assertMockLog2(logging.ERROR, [log_msg])
