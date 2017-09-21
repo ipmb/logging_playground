@@ -75,7 +75,7 @@ class TestLogLevels(BaseLoggingTest):
             'handlers': {
                 'test': {
                     'class': 'logging_playground.utils.MockLoggingHandler',
-                    'level': 'WARNING'
+                    'level': 'INFO'
                 },
             },
             'loggers': {
