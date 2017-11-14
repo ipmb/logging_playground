@@ -102,3 +102,44 @@ class TestDisableExistingLoggers(BaseLoggingTest):
         # defined in the second config, it remains enabled and the log record
         # propagates to it.
         self.assertEqual(len(self.get_mock_logs(logging.ERROR)), 1)
+
+    def test_disable_existing_loggers_true_same(self):
+        """
+        When ``disable_existing_loggers`` is True, duplicate loggers are
+        overwritten.
+        """
+        logging.config.dictConfig({
+            'version': 1,
+            'handlers': {
+                'test': {
+                    'class': 'logging_playground.utils.MockLoggingHandler',
+                },
+            },
+            'loggers': {
+                'my_module': {
+                    'handlers': ['test'],
+                },
+            }
+        })
+        log_msg = "This is a test"
+
+        logging.config.dictConfig({
+            'version': 1,
+            'disable_existing_loggers': True,
+            'handlers': {
+                'test2': {
+                    'class': 'logging_playground.utils.MockLoggingHandler2',
+                },
+            },
+            'loggers': {
+                'my_module': {
+                    'handlers': ['test2'],
+                },
+            }
+        })
+
+        logging.getLogger('my_module').error(log_msg)
+        # This logger is defined in the second config
+        self.assertEqual(len(self.get_mock_logs2(logging.ERROR)), 1)
+        # Initial config is overwritten
+        self.assertEqual(len(self.get_mock_logs(logging.ERROR)), 0)
